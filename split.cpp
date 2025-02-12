@@ -16,8 +16,34 @@ the function below should be the only one in this file.
 
 void split(Node*& in, Node*& odds, Node*& evens)
 {
-  /* Add code here */
-// WRITE YOUR CODE HERE
+  // If the in list is empty just return
+  if(in == nullptr){
+    return;
+  }
+
+  // Save the next node for recursive calls
+  Node* followingnode = in->next;
+
+  // If the value is odd
+  if(in->value % 2 == 1){
+    // assign node to odds  
+    odds = in;
+    // disconnect it from the list
+    odds->next = nullptr;
+    // recusive call back to the function
+    split(followingnode, odds->next, evens);
+  // If the value is even
+  } else {
+    // assign node to evens
+    evens = in;
+    // disconnect it from the list
+    evens->next = nullptr;
+    // recursive call back to the function
+    split(followingnode, odds, evens->next);
+  }
+  
+  // make sure no memory leaks occurs
+  in = nullptr;
 }
 
 /* If you needed a helper function, write it here */
